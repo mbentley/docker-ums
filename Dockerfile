@@ -18,13 +18,13 @@ RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Relea
 ADD UMS.conf /opt/ums/UMS.conf
 ADD WEB.conf /opt/ums/WEB.conf
 ENV UMS_PROFILE /opt/ums/UMS.conf
-RUN (mkdir /tmp/universalmediaserver &&\
+RUN (mkdir /opt/ums/database /opt/ums/data &&\
   groupadd -g 500 ums &&\
   useradd -u 500 -g 500 -d /opt/ums ums &&\
-  chown -R ums:ums /opt/ums /tmp/universalmediaserver)
+  chown -R ums:ums /opt/ums)
 
 USER ums
 WORKDIR /opt/ums
 EXPOSE 1900/udp 2869 5001 9001
-VOLUME ["/tmp/universalmediaserver"]
+VOLUME ["/tmp","/opt/ums/database","/opt/ums/data"]
 CMD ["/opt/ums/UMS.sh"]
