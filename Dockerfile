@@ -25,6 +25,6 @@ RUN (mkdir /tmp/universalmediaserver &&\
 
 USER ums
 WORKDIR /opt/ums
-EXPOSE 5001 5001/udp 2869 1900/udp 9001
+EXPOSE 1900/udp 2869 5001 9001
 VOLUME ["/tmp/universalmediaserver"]
 CMD ["/opt/ums/UMS.sh"]
