@@ -8,11 +8,11 @@ RUN (echo 'deb http://www.deb-multimedia.org jessie main non-free' >> /etc/apt/s
   apt-get update &&\
   DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw mediainfo mencoder mplayer openjdk-7-jre vlc wget libfreetype6:i386 libstdc++6:i386)
 
-ENV UMSVER 6.5.1
-RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}-Java7.tgz/download" -O /opt/UMS-${UMSVER}-Java7.tgz &&\
+ENV UMSVER 6.7.4
+RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
-  tar zxf UMS-${UMSVER}-Java7.tgz &&\
-  rm UMS-${UMSVER}-Java7.tgz &&\
+  tar zxf UMS-${UMSVER}.tgz &&\
+  rm UMS-${UMSVER}.tgz &&\
   mv ums-${UMSVER} ums)
 
 ADD UMS.conf /opt/ums/UMS.conf
