@@ -2,22 +2,24 @@ FROM debian:stretch
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 RUN (apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw mediainfo mencoder mplayer openjdk-8-jre vlc wget libfreetype6 libstdc++6)
+  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac mediainfo mencoder mplayer openjdk-8-jre vlc wget libfreetype6 libstdc++6)
 
 ENV UMSVER 6.7.4
+ENV UMS_PROFILE /opt/ums/UMS.conf
+
 RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
-  mv ums-${UMSVER} ums)
-
-ADD UMS.conf /opt/ums/UMS.conf
-ADD WEB.conf /opt/ums/WEB.conf
-ENV UMS_PROFILE /opt/ums/UMS.conf
-RUN (mkdir /opt/ums/database /opt/ums/data &&\
+  mv ums-${UMSVER} ums &&\
+  mkdir /opt/ums/database /opt/ums/data &&\
   groupadd -g 500 ums &&\
   useradd -u 500 -g 500 -d /opt/ums ums &&\
   chown -R ums:ums /opt/ums)
+
+COPY UMS.conf /opt/ums/UMS.conf
+COPY WEB.conf /opt/ums/WEB.conf
+RUN chown -R ums:ums /opt/ums/UMS.conf /opt/ums/WEB.conf
 
 USER ums
 WORKDIR /opt/ums
