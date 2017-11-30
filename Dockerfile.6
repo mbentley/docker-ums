@@ -2,7 +2,8 @@ FROM debian:stretch
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 RUN (apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac mediainfo mencoder mplayer openjdk-8-jre vlc wget libfreetype6 libstdc++6)
+  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac mediainfo mencoder mplayer openjdk-8-jre vlc wget libfreetype6 libstdc++6 &&\
+  rm -rf /var/lib/apt/lists/*)
 
 ENV UMSVER 6.7.4
 ENV UMS_PROFILE /opt/ums/UMS.conf
