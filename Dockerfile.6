@@ -1,8 +1,10 @@
 FROM debian:stretch
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
-RUN (apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac mediainfo mencoder mplayer openjdk-8-jre vlc wget libfreetype6 libstdc++6 &&\
+# install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
+RUN (dpkg --add-architecture i386 &&\
+  apt-get update &&\
+  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses5 mediainfo mencoder mplayer openjdk-8-jre p7zip vlc wget &&\
   rm -rf /var/lib/apt/lists/*)
 
 ENV UMSVER 6.7.4
