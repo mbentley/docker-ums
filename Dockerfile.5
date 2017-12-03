@@ -4,20 +4,19 @@ MAINTAINER Matt Bentley <mbentley@mbentley.net>
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 RUN (dpkg --add-architecture i386 &&\
   apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses5 mediainfo mencoder mplayer openjdk-8-jre p7zip vlc wget &&\
+  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses5 mediainfo mencoder mplayer openjdk-8-jre vlc wget &&\
   rm -rf /var/lib/apt/lists/*)
 
 ENV UMSVER 5.5.0
+ENV UMS_PROFILE /opt/ums/UMS.conf
+
+# download and install UMS
 RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}-Java7.tgz/download" -O /opt/UMS-${UMSVER}-Java7.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}-Java7.tgz &&\
   rm UMS-${UMSVER}-Java7.tgz &&\
-  mv ums-${UMSVER} ums)
-
-ADD UMS.conf /opt/ums/UMS.conf
-ADD WEB.conf /opt/ums/WEB.conf
-ENV UMS_PROFILE /opt/ums/UMS.conf
-RUN (mkdir /opt/ums/database /opt/ums/data &&\
+  mv ums-${UMSVER} ums &&\
+  mkdir /opt/ums/database /opt/ums/data &&\
   groupadd -g 500 ums &&\
   useradd -u 500 -g 500 -d /opt/ums ums &&\
   chown -R ums:ums /opt/ums)

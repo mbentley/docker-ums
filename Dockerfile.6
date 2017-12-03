@@ -4,13 +4,15 @@ MAINTAINER Matt Bentley <mbentley@mbentley.net>
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 RUN (dpkg --add-architecture i386 &&\
   apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses5 mediainfo mencoder mplayer openjdk-8-jre p7zip vlc wget &&\
+  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses5 mediainfo mencoder mplayer openjdk-8-jre vlc wget &&\
   rm -rf /var/lib/apt/lists/*)
 
-ENV UMSVER 6.7.4
 ENV UMS_PROFILE /opt/ums/UMS.conf
 
-RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
+# get latest release number and use that to install UMS; fail to install if version is not 6.x
+RUN (UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']") &&\
+  if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "6" ]; then echo "Latest version number is no longer 6"; exit 1; fi &&\
+  wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
@@ -19,10 +21,6 @@ RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Relea
   groupadd -g 500 ums &&\
   useradd -u 500 -g 500 -d /opt/ums ums &&\
   chown -R ums:ums /opt/ums)
-
-COPY UMS.conf /opt/ums/UMS.conf
-COPY WEB.conf /opt/ums/WEB.conf
-RUN chown -R ums:ums /opt/ums/UMS.conf /opt/ums/WEB.conf
 
 USER ums
 WORKDIR /opt/ums
