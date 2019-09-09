@@ -8,7 +8,7 @@ RUN (dpkg --add-architecture i386 &&\
   rm -rf /var/lib/apt/lists/*)
 
 ENV UMS_PROFILE /opt/ums/UMS.conf
-ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions"
 
 # get latest release number and use that to install UMS; fail to install if version is not 9.x
 RUN (UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']") &&\
