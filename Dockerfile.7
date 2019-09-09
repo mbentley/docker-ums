@@ -9,6 +9,7 @@ RUN (dpkg --add-architecture i386 &&\
 
 ENV UMSVER 7.9.0
 ENV UMS_PROFILE /opt/ums/UMS.conf
+ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
 
 # download and install UMS
 RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
