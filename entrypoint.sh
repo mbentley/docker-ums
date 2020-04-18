@@ -5,6 +5,15 @@ console_output() {
   echo -e "${1}  $(date +"%H:%M:%S.%3N") [entrypoint] ${2}"
 }
 
+# check to see if the PORT env var has been passed
+if [ -n "${PORT}" ]
+then
+  console_output INFO "Setting UMS port to '${PORT}'"
+
+  # append the PORT variable in the UMS.conf
+  sed -i "s+^port =$+port = ${PORT}+g" /opt/ums/UMS.conf
+fi
+
 # check to see if the FOLDER env var has been passed
 if [ -n "${FOLDER}" ]
 then
@@ -21,7 +30,7 @@ then
   fi
 fi
 
-# make sure permissions are set appropriately on each file/directory
+# make sure ownership is set appropriately on each file/directory
 for FILEorDIR in UMS.conf UMS.cred data database
 do
   # make sure the file or directory exists before performing permission check; skip if it doesn't exists
@@ -49,6 +58,12 @@ do
     else
       console_output INFO "ownership is correct on '/opt/ums/${FILEorDIR}'"
     fi
+
+    # set permissions on directories that don't have the right permissions
+    find "/opt/ums/${FILEorDIR}" -type d ! -perm -750 -exec chmod -v 750 {} \;
+
+    # set permissions on files
+    find "/opt/ums/${FILEorDIR}" -type f ! -perm -640 -exec chmod -v 640 {} \;
   fi
 done
 

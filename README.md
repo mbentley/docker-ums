@@ -14,7 +14,7 @@ To pull this image:
 * `6` - UMS 6.x (debian:stretch based)
 * `5` - UMS 5.x (debian:stretch based)
 
-## Permission Prerequesites
+## Permission Prerequisites
 
 By default, UMS will run as a non-root user.  Due to this, your media directory that you bind mount into the container must have `other` permissions set to `rx`:
 
@@ -33,6 +33,7 @@ docker run -d \
   --name ums \
   -e FOLDER="/media" \
   -e FORCE_CHOWN="false" \
+  -e PORT=5001 \
   -e SET_MEDIA_PERMISSIONS="false" \
   -v ums-data:/opt/ums/data \
   -v ums-database:/opt/ums/database \
@@ -49,6 +50,7 @@ docker run -d \
   --name ums \
   -e FOLDER="" \
   -e FORCE_CHOWN="false" \
+  -e PORT=5001 \
   -e SET_MEDIA_PERMISSIONS="false" \
   -v /path/to/your/UMS.conf:/opt/ums/UMS.conf \
   -v /path/to/your/UMS.cred:/opt/ums/UMS.cred \
@@ -62,6 +64,7 @@ docker run -d \
 
 * `FOLDER` - (default: _null_) Automatically set the path to the media folder for UMS in `UMS.conf`
 * `FORCE_CHOWN` - (default: `false`) When set to `true`, forces ownership of the `/opt/ums/data` and `/opt/ums/database` directories so UMS can write to them
+* `PORT` - (default: _null_) Defaults to the UMS default which is currently 5001 if not set; changed the default port if set
 * `SET_MEDIA_PERMISSIONS` - (default: `false`) When set to `true` & `FOLDER` passed, performs a `chmod` on the `FOLDER` directory so that it is world read/execute to be able to read the media files and traverse directories
 
 Note: Volumes for `UMS.conf`, `data` `database` are optional but the data in them will not persist otherwise.  If you need a `UMS.conf` file to start from, you can start a container and use `docker cp` to transfer the file to your host:
