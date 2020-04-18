@@ -4,7 +4,7 @@ MAINTAINER Matt Bentley <mbentley@mbentley.net>
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 RUN (dpkg --add-architecture i386 &&\
   apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 mediainfo mencoder mplayer procps vlc wget &&\
+  DEBIAN_FRONTEND=noninteractive apt-get install -y dcraw flac gosu libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 mediainfo mencoder mplayer procps vlc wget &&\
   rm -rf /var/lib/apt/lists/*)
 
 ENV UMS_PROFILE /opt/ums/UMS.conf
@@ -26,7 +26,6 @@ RUN (UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/Uni
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
 
-USER ums
 WORKDIR /opt/ums
 EXPOSE 1900/udp 2869 5001 9001
 VOLUME ["/tmp","/opt/ums/database","/opt/ums/data"]
