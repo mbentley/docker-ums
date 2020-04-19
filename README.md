@@ -33,6 +33,7 @@ docker run -d \
   --name ums \
   -e FOLDER="/media" \
   -e FORCE_CHOWN="false" \
+  -e NETWORK_INTERFACE="" \
   -e PORT=5001 \
   -e SET_MEDIA_PERMISSIONS="false" \
   -v ums-data:/opt/ums/data \
@@ -50,6 +51,7 @@ docker run -d \
   --name ums \
   -e FOLDER="" \
   -e FORCE_CHOWN="false" \
+  -e NETWORK_INTERFACE="" \
   -e PORT=5001 \
   -e SET_MEDIA_PERMISSIONS="false" \
   -v /path/to/your/UMS.conf:/opt/ums/UMS.conf \
@@ -64,6 +66,7 @@ docker run -d \
 
 * `FOLDER` - (default: _null_) Automatically set the path to the media folder for UMS in `UMS.conf`
 * `FORCE_CHOWN` - (default: `false`) When set to `true`, forces ownership of the `/opt/ums/data` and `/opt/ums/database` directories so UMS can write to them
+* `NETWORK_INTERFACE` - (default: _null_) UMS will autodetect the network interface; sometimes you want to specify which network interface to have UMS bind to
 * `PORT` - (default: _null_) Defaults to the UMS default which is currently 5001 if not set; changed the default port if set
 * `SET_MEDIA_PERMISSIONS` - (default: `false`) When set to `true` & `FOLDER` passed, performs a `chmod` on the `FOLDER` directory so that it is world read/execute to be able to read the media files and traverse directories
 
