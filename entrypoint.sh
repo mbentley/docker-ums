@@ -5,22 +5,31 @@ console_output() {
   echo -e "${1}  $(date +"%H:%M:%S.%3N") [entrypoint] ${2}"
 }
 
+# function to set custom parameters in UMS.conf
+set_ums_parameter() {
+  console_output INFO "Setting UMS setting '${1}' to '${2}'"
+  sed -i "s+^${1} =$+${1} = ${2}+g" /opt/ums/UMS.conf
+}
+
 # check to see if the PORT env var has been passed
 if [ -n "${PORT}" ]
 then
-  console_output INFO "Setting UMS port to '${PORT}'"
-
   # append the PORT variable in the UMS.conf
-  sed -i "s+^port =$+port = ${PORT}+g" /opt/ums/UMS.conf
+  set_ums_parameter port "${PORT}"
+fi
+
+# check to see if the NETWORK_INTERFACE env var has been passed
+if [ -n "${NETWORK_INTERFACE}" ]
+then
+  # append the NETWORK_INTERFACE variable in the UMS.conf
+  set_ums_parameter network_interface "${NETWORK_INTERFACE}"
 fi
 
 # check to see if the FOLDER env var has been passed
 if [ -n "${FOLDER}" ]
 then
-  console_output INFO "Setting media folder to '${FOLDER}'"
-
   # append the FOLDER variable data in the UMS.conf
-  sed -i "s+^folders =$+folders = ${FOLDER}+g" /opt/ums/UMS.conf
+  set_ums_parameter folders "${FOLDER}"
 
   # check to see if we should set the permissions for the FOLDER
   if [ "${SET_MEDIA_PERMISSIONS}" = "true" ]
