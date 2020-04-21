@@ -1,3 +1,10 @@
+# build tsmuxer
+FROM ubuntu:xenial
+COPY tsmuxer-builder.sh /tmp/tsmuxer-builder.sh
+RUN /tmp/tsmuxer-builder.sh /tmp/ /opt/ums/linux
+
+
+# build UMS image
 FROM alpine:latest
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
@@ -7,7 +14,7 @@ ENV UMS_PROFILE=/opt/ums/UMS.conf \
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 # get latest release number and use that to install UMS; fail to install if version is not 9.x
 RUN echo '@edge http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
-  apk add --no-cache coreutils flac jq gosu@edge mediainfo mplayer openjdk8-jre procps vlc wget &&\
+  apk add --no-cache coreutils flac jq gosu@edge mediainfo mplayer openjdk8-jre vlc &&\
   UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name) &&\
   apk del --purge --no-cache jq &&\
   if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "9" ]; then echo "Latest version number is no longer 9"; exit 1; fi &&\
@@ -17,11 +24,15 @@ RUN echo '@edge http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repos
   rm UMS-${UMSVER}.tgz &&\
   mv ums-${UMSVER} ums &&\
   rm -rf /opt/ums/jre &&\
+  rm /opt/ums/linux/tsMuxeR* &&\
   ln -s /usr/lib/jvm/java-1.8-openjdk/jre /opt/ums/jre &&\
   mkdir /opt/ums/database /opt/ums/data &&\
   addgroup -g 500 ums &&\
   adduser -u 500 -G ums -h /opt/ums -D ums &&\
   chown -R ums:ums /opt/ums
+
+# bring over tsmuxer
+COPY --from=0 /tmp/tsmuxer-install /
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
