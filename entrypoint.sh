@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 # function to provide some standard output
 console_output() {
-  echo -e "${1}  $(date +"%H:%M:%S.%3N") [entrypoint] ${2}"
+  echo "${1}  $(date +"%H:%M:%S.%3N") [entrypoint] ${2}"
 }
 
 # function to set custom parameters in UMS.conf
@@ -10,20 +10,6 @@ set_ums_parameter() {
   console_output INFO "Setting UMS setting '${1}' to '${2}'"
   sed -i "s+^${1} =$+${1} = ${2}+g" /opt/ums/UMS.conf
 }
-
-# check to see if the PORT env var has been passed
-if [ -n "${PORT}" ]
-then
-  # append the PORT variable in the UMS.conf
-  set_ums_parameter port "${PORT}"
-fi
-
-# check to see if the NETWORK_INTERFACE env var has been passed
-if [ -n "${NETWORK_INTERFACE}" ]
-then
-  # append the NETWORK_INTERFACE variable in the UMS.conf
-  set_ums_parameter network_interface "${NETWORK_INTERFACE}"
-fi
 
 # check to see if the FOLDER env var has been passed
 if [ -n "${FOLDER}" ]
@@ -39,11 +25,33 @@ then
   fi
 fi
 
+# check to see if the LOG_LEVEL env var has been passed
+if [ -n "${LOG_LEVEL}" ]
+then
+  # append the LOG_LEVEL variable in the UMS.conf
+  set_ums_parameter log_level "${LOG_LEVEL}"
+  set_ums_parameter logging_filter_console "${LOG_LEVEL}"
+fi
+
+# check to see if the NETWORK_INTERFACE env var has been passed
+if [ -n "${NETWORK_INTERFACE}" ]
+then
+  # append the NETWORK_INTERFACE variable in the UMS.conf
+  set_ums_parameter network_interface "${NETWORK_INTERFACE}"
+fi
+
+# check to see if the PORT env var has been passed
+if [ -n "${PORT}" ]
+then
+  # append the PORT variable in the UMS.conf
+  set_ums_parameter port "${PORT}"
+fi
+
 # make sure ownership is set appropriately on each file/directory
 for FILEorDIR in UMS.conf UMS.cred data database
 do
   # make sure the file or directory exists before performing permission check; skip if it doesn't exists
-  if [ -a "/opt/ums/${FILEorDIR}" ]
+  if [ -e "/opt/ums/${FILEorDIR}" ]
   then
     # get the owner and group
     OWNER="$(stat -c '%u' /opt/ums/${FILEorDIR})"
