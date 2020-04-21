@@ -5,10 +5,8 @@ set -o pipefail
 
 export DEBIAN_FRONTEND=noninteractive
 
-SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
-
 usage() {
-    echo "usage: $(basename $0) OUTPUT_DIR [ROOT_EXEC_DIR]
+  echo "usage: $(basename "${0}") OUTPUT_DIR [ROOT_EXEC_DIR]
 
   Arguments:
     OUTPUT_DIR     Directory where the tarball will be copied to.
@@ -63,19 +61,20 @@ mkdir -p "$INSTALL_DIR/lib"
 DEPS="$(LD_TRACE_LOADED_OBJECTS=1 "$INSTALL_DIR/bin/tsMuxeR" | grep " => " | cut -d'>' -f2 | sed 's/^[[:space:]]*//' | cut -d'(' -f1 | grep '^/usr\|^/lib')"
 for dep in $DEPS $EXTRA_LIBS
 do
-    dep_real="$(realpath "$dep")"
-    dep_basename="$(basename "$dep_real")"
+  dep_real="$(realpath "$dep")"
+  dep_basename="$(basename "$dep_real")"
 
-    # Skip already-processed libraries.
-    [ ! -f "$INSTALL_DIR/lib/$dep_basename" ] || continue
+  # Skip already-processed libraries.
+  [ ! -f "$INSTALL_DIR/lib/$dep_basename" ] || continue
 
-    echo "  -> Found library: $dep"
-    cp "$dep_real" "$INSTALL_DIR/lib/"
-    while true; do
-        [ -L "$dep" ] || break;
-        ln -sf "$dep_basename" "$INSTALL_DIR"/lib/$(basename $dep)
-        dep="$(readlink -f "$dep")"
-    done
+  echo "  -> Found library: $dep"
+  cp "$dep_real" "$INSTALL_DIR/lib/"
+
+  while true; do
+    [ -L "$dep" ] || break;
+    ln -sf "$dep_basename" "$INSTALL_DIR/lib/$(basename "${dep}")"
+    dep="$(readlink -f "$dep")"
+  done
 done
 
 # Since the interpreter can't be changed in binaries, we need to add it to the
