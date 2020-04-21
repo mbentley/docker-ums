@@ -8,7 +8,7 @@ RUN (dpkg --add-architecture i386 &&\
   rm -rf /var/lib/apt/lists/*)
 
 ENV UMSVER=6.8.0 \
-  UMS_PROFILE /opt/ums/UMS.conf
+  UMS_PROFILE=/opt/ums/UMS.conf
 
 # download and install UMS
 RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
