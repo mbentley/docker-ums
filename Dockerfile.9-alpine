@@ -29,7 +29,8 @@ RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/r
   addgroup -g 500 ums &&\
   adduser -u 500 -G ums -h /opt/ums -D ums &&\
   chown -R ums:ums /opt/ums &&\
-  rm -rf /media/*
+  rm -rf /media/* &&\
+  rm -rf /opt/ums/jre14
 
 # bring over tsmuxer
 COPY --from=0 /tmp/tsmuxer-install /
