@@ -11,7 +11,7 @@ ENV UMSVER=5.5.0 \
   UMS_PROFILE=/opt/ums/UMS.conf
 
 # download and install UMS
-RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}-Java7.tgz/download" -O /opt/UMS-${UMSVER}-Java7.tgz &&\
+RUN (wget "https://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}-Java7.tgz/download" -O /opt/UMS-${UMSVER}-Java7.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}-Java7.tgz &&\
   rm UMS-${UMSVER}-Java7.tgz &&\

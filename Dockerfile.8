@@ -12,7 +12,7 @@ ENV UMSVER=8.2.0 \
   JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
 
 # download and install UMS
-RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
+RUN (wget "https://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
