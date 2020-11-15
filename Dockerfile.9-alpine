@@ -22,9 +22,9 @@ RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/r
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
   mv ums-${UMSVER} ums &&\
-  rm -rf /opt/ums/jre &&\
+  rm -rf /opt/ums/jre15 &&\
   rm /opt/ums/linux/tsMuxeR* &&\
-  ln -s /usr/lib/jvm/java-1.8-openjdk/jre /opt/ums/jre &&\
+  ln -s /usr/lib/jvm/java-1.8-openjdk/jre /opt/ums/jre15 &&\
   mkdir /opt/ums/database /opt/ums/data &&\
   addgroup -g 500 ums &&\
   adduser -u 500 -G ums -h /opt/ums -D ums &&\
