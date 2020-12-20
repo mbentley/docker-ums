@@ -84,6 +84,10 @@ do
   fi
 done
 
+# clean up and FIFOs that were not cleanly close
+console_output INFO "Removing old FIFOs (if they exist)"
+find /tmp -type p -exec rm -v {} \;
+
 # hack: add /opt/ums/linux to path
 console_output INFO "Adding '/opt/ums/linux' to the PATH"
 export PATH="$PATH:/opt/ums/linux"
