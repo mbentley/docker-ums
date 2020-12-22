@@ -11,7 +11,7 @@ ENV UMSVER=6.8.0 \
   UMS_PROFILE=/opt/ums/UMS.conf
 
 # download and install UMS
-RUN (wget "https://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
+RUN (wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
