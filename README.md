@@ -74,7 +74,10 @@ docker run -d \
 * `PORT` - (default: _null_) Defaults to the UMS default which is currently 5001 if not set; changed the default port if set
 * `SET_MEDIA_PERMISSIONS` - (default: `false`) When set to `true` & `FOLDER` passed, performs a `chmod` on the `FOLDER` directory so that it is world read/execute to be able to read the media files and traverse directories
 
-Note: Volumes for `UMS.conf`, `data` `database` are optional but the data in them will not persist otherwise.  If you need a `UMS.conf` file to start from, you can start a container and use `docker cp` to transfer the file to your host:
+
+## Persistent Data
+
+**_Warning_**: Volumes for `UMS.conf`, `data` `database` are optional but the data in them will not persist otherwise.  If you need a `UMS.conf` file to start from, you can start a container and use `docker cp` to transfer the file to your host:
 
 ```
 docker run -d --name ums-temp mbentley/ums bash
