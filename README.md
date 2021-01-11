@@ -8,7 +8,9 @@ To pull this image:
 
 ## Tags
 
-* `latest`, `9` - UMS 9.x (debian:buster based)
+* `latest`, `10` - UMS 10.x (debian:buster based)
+* `10-alpine` - UMS 10.x (alpine:latest based)
+* `9` - UMS 9.x (debian:buster based)
 * `9-alpine` - UMS 9.x (alpine:latest based)
 * `8` - UMS 8.x (debian:stretch based)
 * `7` - UMS 7.x (debian:stretch based)
