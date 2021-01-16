@@ -1,5 +1,5 @@
 # build tsmuxer
-FROM ubuntu:xenial
+FROM ubuntu:16.04
 COPY tsmuxer-builder.sh /tmp/tsmuxer-builder.sh
 RUN /tmp/tsmuxer-builder.sh /tmp/ /opt/ums/linux
 
