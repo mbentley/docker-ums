@@ -4,7 +4,7 @@ COPY tsmuxer-builder.sh /tmp/tsmuxer-builder.sh
 RUN /tmp/tsmuxer-builder.sh /tmp/ /opt/ums/linux
 
 # build UMS image
-FROM alpine:latest
+FROM alpine:3.12
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 ENV UMS_PROFILE=/opt/ums/UMS.conf \
@@ -12,7 +12,7 @@ ENV UMS_PROFILE=/opt/ums/UMS.conf \
 
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 # get latest release number and use that to install UMS; fail to install if version is not 9.x
-RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
+RUN echo '@edge https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
   apk add --no-cache coreutils flac jq gosu@edge mediainfo mplayer openjdk8-jre vlc &&\
   UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name) &&\
   apk del --purge --no-cache jq &&\
