@@ -10,6 +10,7 @@ To pull this image:
 
 * `latest`, `10` - UMS 10.x (debian:buster based)
 * `10-alpine` - UMS 10.x (alpine:latest based)
+* `10-alpine-arm64` - UMS 10.x (alpine:latest based for arm64)
 * `9` - UMS 9.x (debian:buster based)
 * `9-alpine` - UMS 9.x (alpine:latest based)
 * `8` - UMS 8.x (debian:stretch based)
@@ -75,7 +76,6 @@ docker run -d \
 * `LOG_LEVEL` - (default: _null_) UMS defaults to `INFO`, can be `ALL`, `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR` or `OFF`
 * `PORT` - (default: _null_) Defaults to the UMS default which is currently 5001 if not set; changed the default port if set
 * `SET_MEDIA_PERMISSIONS` - (default: `false`) When set to `true` & `FOLDER` passed, performs a `chmod` on the `FOLDER` directory so that it is world read/execute to be able to read the media files and traverse directories
-
 
 ## Persistent Data
 
