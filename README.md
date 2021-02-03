@@ -10,9 +10,9 @@ To pull this image:
 
 | Tags | UMS Version | Dockerfile | Base Image | Arch |
 | ---- | ----------- | ---------- | ---------- | ---- |
-| `latest`, `10` | UMS 10.x | [Dockerfile](Dockerfile) | `debian:buster` | `amd64` |
+| `latest`<br>`10` | UMS 10.x | [Dockerfile](Dockerfile) | `debian:buster` | `amd64` |
 | `10-alpine` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64` |
-| `10-alpine-arm64` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `arm64` |
+| `latest-arm64`<br>`latest-alpine`<br>`10-alpine-arm64` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `arm64` |
 | `9` | UMS 9.x | [Dockerfile.9](Dockerfile.9) | `debian:buster` | `amd64` |
 | `9-alpine` | UMS 9.x | [Dockerfile.9-alpine](Dockerfile.9-alpine) | `alpine:latest` | `amd64` |
 | `8` | UMS 8.x | [Dockerfile.8](Dockerfile.8) | `debian:stretch` | `amd64` |
