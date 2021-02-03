@@ -8,15 +8,17 @@ To pull this image:
 
 ## Tags
 
-* `latest`, `10` - UMS 10.x (debian:buster based)
-* `10-alpine` - UMS 10.x (alpine:latest based)
-* `10-alpine-arm64` - UMS 10.x (alpine:latest based for arm64)
-* `9` - UMS 9.x (debian:buster based)
-* `9-alpine` - UMS 9.x (alpine:latest based)
-* `8` - UMS 8.x (debian:stretch based)
-* `7` - UMS 7.x (debian:stretch based)
-* `6` - UMS 6.x (debian:stretch based)
-* `5` - UMS 5.x (debian:stretch based)
+| Tags | UMS Version | Dockerfile | Base Image | Arch |
+| ---- | ----------- | ---------- | ---------- | ---- |
+| `latest`, `10` | UMS 10.x | [Dockerfile](Dockerfile) | `debian:buster` | `amd64` |
+| `10-alpine` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64` |
+| `10-alpine-arm64` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `arm64` |
+| `9` | UMS 9.x | [Dockerfile.9](Dockerfile.9) | `debian:buster` | `amd64` |
+| `9-alpine` | UMS 9.x | [Dockerfile.9-alpine](Dockerfile.9-alpine) | `alpine:latest` | `amd64` |
+| `8` | UMS 8.x | [Dockerfile.8](Dockerfile.8) | `debian:stretch` | `amd64` |
+| `7` | UMS 7.x | [Dockerfile.7](Dockerfile.7) | `debian:stretch` | `amd64` |
+| `6` | UMS 6.x | [Dockerfile.6](Dockerfile.6) | `debian:stretch` | `amd64` |
+| `5` | UMS 5.x | [Dockerfile.5](Dockerfile.5) | `debian:stretch` | `amd64` |
 
 ## Permission Prerequisites
 
