@@ -38,7 +38,7 @@ RUN echo '@edge https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/
   rm -rf /opt/ums/jre14
 
 # bring over tsmuxer
-COPY --from=0 /tmp/tsmuxer-install /
+COPY --from=0 /tsMuxer/bin/tsMuxeR /opt/ums/linux/tsMuxeR
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
