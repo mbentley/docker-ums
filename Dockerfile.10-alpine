@@ -33,7 +33,7 @@ RUN echo '@edge https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/
   rm UMS-${UMSVER}.tgz &&\
   mv ums-${UMSVER} ums &&\
   rm -rf /opt/ums/jre* &&\
-  rm /opt/ums/linux/tsMuxeR* &&\
+  rm -f /opt/ums/linux/tsMuxeR* &&\
   mkdir /opt/ums/database /opt/ums/data &&\
   addgroup -g 500 ums &&\
   adduser -u 500 -G ums -h /opt/ums -D ums &&\
