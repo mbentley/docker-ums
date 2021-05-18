@@ -94,4 +94,4 @@ export PATH="$PATH:/opt/ums/linux"
 
 # output message about ending entrypoint
 console_output INFO "Launching command '${*}' as user ums"
-exec gosu ums "${@}"
+exec su ums -c "${@}"

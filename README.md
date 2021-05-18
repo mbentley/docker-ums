@@ -34,6 +34,7 @@ Default `UMS.conf` with a media folder specified:
 
 ```
 docker run -d \
+  --init \
   --net=host \
   --restart=always \
   --name ums \
@@ -53,6 +54,7 @@ Custom `UMS.conf` and persistent `UMS.cred` file, `data` and `database` director
 
 ```
 docker run -d \
+  --init \
   --net=host \
   --restart=always \
   --name ums \
