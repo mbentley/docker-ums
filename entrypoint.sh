@@ -92,6 +92,18 @@ find /tmp -type p -exec rm -v {} \;
 console_output INFO "Adding '/opt/ums/linux' to the PATH"
 export PATH="$PATH:/opt/ums/linux"
 
+# remove temporary data files, if they exist
+for FILE in pms.pid UMS.tmpmgr
+do
+  # check to see if each file exists
+  if [ -f "/opt/ums/data/${FILE}" ]
+  then
+    # output message and remove the file
+    console_output INFO "Removing temporary file '/opt/ums/data/${FILE}' before starting"
+    rm "/opt/ums/data/${FILE}"
+  fi
+done
+
 # output message about ending entrypoint
 console_output INFO "Launching command '${*}' as user ums"
 exec su ums -c "${@}"
