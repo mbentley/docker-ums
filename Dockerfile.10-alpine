@@ -16,7 +16,7 @@ FROM alpine:latest
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 ENV UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions"
+  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
 
 # add build arg for cache busting
 ARG UMSVER
