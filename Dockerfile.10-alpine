@@ -37,10 +37,10 @@ RUN echo '@edge https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/
   mv ums-${UMSVER} ums &&\
   rm -rf /opt/ums/jre* &&\
   rm -f /opt/ums/linux/tsMuxeR* &&\
-  mkdir /opt/ums/database /opt/ums/data &&\
+  mkdir /opt/ums/database /opt/ums/data /var/log/UMS &&\
   addgroup -g 500 ums &&\
   adduser -u 500 -G ums -h /opt/ums -D ums &&\
-  chown -R ums:ums /opt/ums &&\
+  chown -R ums:ums /opt/ums /var/log/UMS &&\
   rm -rf /media/*
 
 # bring over tsmuxer

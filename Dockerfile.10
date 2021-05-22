@@ -21,10 +21,10 @@ RUN (UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/Uni
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
   mv ums-${UMSVER} ums &&\
-  mkdir /opt/ums/database /opt/ums/data &&\
+  mkdir /opt/ums/database /opt/ums/data /var/log/UMS &&\
   groupadd -g 500 ums &&\
   useradd -u 500 -g 500 -d /opt/ums ums &&\
-  chown -R ums:ums /opt/ums)
+  chown -R ums:ums /opt/ums /var/log/UMS)
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
