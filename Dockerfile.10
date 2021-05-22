@@ -31,6 +31,6 @@ COPY entrypoint.sh /entrypoint.sh
 
 WORKDIR /opt/ums
 EXPOSE 1900/udp 2869 5001 9001
-VOLUME ["/tmp","/opt/ums/database","/opt/ums/data"]
+VOLUME ["/tmp","/opt/ums/database","/opt/ums/data","/var/log/UMS"]
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/opt/ums/UMS.sh"]
