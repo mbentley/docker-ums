@@ -25,7 +25,7 @@ ARG UMSVER
 # get latest release number and use that to install UMS; fail to install if version is not 10.x
 RUN echo '@edge https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
   apk add --no-cache coreutils flac jq iputils mediainfo mplayer openjdk8-jre vlc &&\
-  UMSVER=$(if [ -z "${UMSVER}" ]; then wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']"; else echo "${UMSVER}"; fi) &&\
+  UMSVER=$(if [ -z "${UMSVER}" ]; then wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name; else echo "${UMSVER}"; fi) &&\
   MYARCH="$(arch)" &&\
   if [ "${MYARCH}" = "x86_64" ]; then UMSARCH="x86_64"; elif [ "${MYARCH}" = "arm64" ] || [ "${MYARCH}" = "aarch64" ]; then UMSARCH="arm64"; else echo "unsupported archtecture"; exit 1; fi &&\
   apk del --purge --no-cache jq &&\
