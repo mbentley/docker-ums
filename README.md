@@ -6,19 +6,31 @@ based off of debian:buster or alpine:latest
 To pull this image:
 `docker pull mbentley/ums`
 
-## Tags
+## Image Tags
+
+### Multi-arch Tags
 
 | Tags | UMS Version | Dockerfile | Base Image | Arch |
 | ---- | ----------- | ---------- | ---------- | ---- |
-| `latest`<br>`10` | UMS 10.x | [Dockerfile](Dockerfile) | `debian:buster` | `amd64` |
-| `10-alpine` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64` |
-| `latest-arm64`<br>`latest-alpine`<br>`10-alpine-arm64` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `arm64` |
+| `latest`<br>`10` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `10-alpine` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `10-debian` | UMS 10.x | [Dockerfile.10-debian](Dockerfile.10-debian) | `debian:bullseye` | `amd64` |
 | `9` | UMS 9.x | [Dockerfile.9](Dockerfile.9) | `debian:buster` | `amd64` |
 | `9-alpine` | UMS 9.x | [Dockerfile.9-alpine](Dockerfile.9-alpine) | `alpine:latest` | `amd64` |
 | `8` | UMS 8.x | [Dockerfile.8](Dockerfile.8) | `debian:stretch` | `amd64` |
 | `7` | UMS 7.x | [Dockerfile.7](Dockerfile.7) | `debian:stretch` | `amd64` |
 | `6` | UMS 6.x | [Dockerfile.6](Dockerfile.6) | `debian:stretch` | `amd64` |
 | `5` | UMS 5.x | [Dockerfile.5](Dockerfile.5) | `debian:stretch` | `amd64` |
+
+### Explicit Architecture Tags
+
+These tags will explicitly pull the image for the listed architecture and are bit for bit identical to the multi-arch tags images.
+
+| Tags | UMS Version | Dockerfile | Base Image | Arch |
+| ---- | ----------- | ---------- | ---------- | ---- |
+| `latest-amd64`<br>`10-alpine-amd64` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64` |
+| `latest-arm64`<br>`10-alpine-arm64` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `arm64` |
+| `10-debian-amd64` | UMS 10.x | [Dockerfile.10-debian](Dockerfile.10-debian) | `debian:bullseye` | `amd64` |
 
 ## Permission Prerequisites
 
