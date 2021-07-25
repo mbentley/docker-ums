@@ -1,7 +1,7 @@
 # mbentley/ums
 
 docker image for Universal Media Server (UMS)
-based off of debian:stretch
+based off of debian:buster or alpine:latest
 
 To pull this image:
 `docker pull mbentley/ums`
