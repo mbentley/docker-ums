@@ -1,0 +1,10 @@
+# build tsmuxer (we must use alpine 3.11 because ninja doesn't exist in 3.12 and above)
+FROM mbentley/ums:10-alpine
+
+RUN cd /tmp &&\
+  wget "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_agent_linux-x86_12_0_3.tar.gz" &&\
+  cd /opt &&\
+  tar zxvf /tmp/jprofiler_agent_linux-x86_12_0_3.tar.gz &&\
+  rm /tmp/jprofiler_agent_linux-x86_12_0_3.tar.gz
+
+ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -agentpath:/opt/jprofiler12/bin/linux_musl-x64/libjprofilerti.so=port=8849,nowait"
