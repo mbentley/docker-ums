@@ -45,6 +45,8 @@ COPY --from=0 /tsMuxer/bin/tsMuxeR /opt/ums/linux/tsMuxeR
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
 
+RUN apk add --no-cache openjdk8
+
 WORKDIR /opt/ums
 EXPOSE 1900/udp 2869 5001 9001
 VOLUME ["/tmp","/opt/ums/database","/opt/ums/data","/var/log/UMS"]

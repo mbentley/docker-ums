@@ -7,4 +7,6 @@ RUN cd /tmp &&\
   tar zxvf /tmp/jprofiler_agent_linux-x86_12_0_3.tar.gz &&\
   rm /tmp/jprofiler_agent_linux-x86_12_0_3.tar.gz
 
+RUN apk add --no-cache openjdk8
+
 ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -agentpath:/opt/jprofiler12/bin/linux_musl-x64/libjprofilerti.so=port=8849,nowait"
