@@ -17,6 +17,13 @@ To pull this image:
 | `10-debian` | UMS 10.x | [Dockerfile.10-debian](Dockerfile.10-debian) | `debian:bullseye` | `amd64` |
 | `9` | UMS 9.x | [Dockerfile.9](Dockerfile.9) | `debian:buster` | `amd64` |
 | `9-alpine` | UMS 9.x | [Dockerfile.9-alpine](Dockerfile.9-alpine) | `alpine:latest` | `amd64` |
+
+### Archived Tags
+
+These images are still published on Docker Hub but are no longer regularly updated due to the base OS no longer being supported.  **Use with extreme caution as these images are likely to contain unpatched security vulnerabilities!**
+
+| Tags | UMS Version | Dockerfile | Base Image | Arch |
+| ---- | ----------- | ---------- | ---------- | ---- |
 | `8` | UMS 8.x | [Dockerfile.8](Dockerfile.8) | `debian:stretch` | `amd64` |
 | `7` | UMS 7.x | [Dockerfile.7](Dockerfile.7) | `debian:stretch` | `amd64` |
 | `6` | UMS 6.x | [Dockerfile.6](Dockerfile.6) | `debian:stretch` | `amd64` |
