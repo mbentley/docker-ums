@@ -1,6 +1,6 @@
 # rebased/repackaged base image that only updates existing packages
 FROM mbentley/debian:stretch
-MAINTAINER Matt Bentley <mbentley@mbentley.net>
+LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 RUN (dpkg --add-architecture i386 &&\
