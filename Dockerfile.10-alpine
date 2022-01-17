@@ -1,9 +1,8 @@
-# build tsmuxer (we must use alpine 3.11 because ninja doesn't exist in 3.12 and above)
 # rebased/repackaged base image that only updates existing packages
-FROM mbentley/alpine:3.11 AS tsmuxer-build
+FROM mbentley/alpine:latest AS tsmuxer-build
 
 # install build dependencies
-RUN apk add --no-cache build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static ninja zlib-dev zlib-static
+RUN apk add --no-cache brotli-static build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static zlib-dev zlib-static
 
 # copy in build script
 COPY build-tsmuxer.sh /
