@@ -3,17 +3,19 @@
 set -e
 set -x
 
-git clone --depth 1 https://github.com/justdan96/tsMuxer.git
+# last commit that works (until I have figured out https://github.com/justdan96/tsMuxer/issues/543)
+git clone --depth 1 --branch nightly-2022-01-11-02-11-13 https://github.com/justdan96/tsMuxer.git
 
-# build commands taken from https://github.com/justdan96/tsMuxer/blob/master/rebuild_linux.sh
+# doesn't work (see above)
+#git clone --depth 1 https://github.com/justdan96/tsMuxer.git
+
 cd tsMuxer
-rm -rf build
-mkdir build
-cd build
-cmake ../ -G Ninja -DTSMUXER_STATIC_BUILD=true
-ninja
-cp tsMuxer/tsmuxer ../bin/tsMuxeR
-cd ..
-rm -rf build
+
+# set build args
+export MAKEFLAGS="-j 4"
+
+# execute script from repo
+./rebuild_linux_docker.sh
+
 file ./bin/tsMuxeR
 ./bin/tsMuxeR --version
