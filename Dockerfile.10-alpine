@@ -2,7 +2,7 @@
 FROM mbentley/alpine:latest AS tsmuxer-build
 
 # install build dependencies
-RUN apk add --no-cache brotli-static build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static zlib-dev zlib-static
+RUN apk add --no-cache build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static zlib-dev zlib-static
 
 # copy in build script
 COPY build-tsmuxer.sh /
