@@ -22,8 +22,7 @@ ENV UMS_PROFILE=/opt/ums/UMS.conf \
 
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 # get latest release number and use that to install UMS; fail to install if version is not 10.x
-RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
-  apk add --no-cache coreutils flac jq mediainfo mplayer openjdk8-jre vlc &&\
+RUN apk add --no-cache coreutils flac jq mediainfo mplayer openjdk8-jre vlc &&\
   UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases | jq -r '.[] | select(.prerelease == true) | .name' | head -n 1) &&\
   apk del --purge --no-cache jq &&\
   if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "10" ]; then echo "Latest version number is no longer 10"; exit 1; fi &&\

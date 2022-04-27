@@ -22,8 +22,7 @@ ENV UMSVER=9.8.3 \
   JAVA_OPTS="-XX:+UnlockExperimentalVMOptions"
 
 # download and install UMS
-RUN echo '@edge https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
-  apk add --no-cache coreutils flac mediainfo mplayer openjdk8-jre vlc &&\
+RUN apk add --no-cache coreutils flac mediainfo mplayer openjdk8-jre vlc &&\
   wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
