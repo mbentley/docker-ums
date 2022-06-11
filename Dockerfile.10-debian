@@ -14,8 +14,8 @@ ENV UMSVER=10.21.1 \
   UMS_PROFILE=/opt/ums/UMS.conf \
   JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
 
-# get latest release number and use that to install UMS; fail to install if version is not 10.x
-RUN wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
+# get latest release number and use that to install UMS
+RUN wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
@@ -23,10 +23,7 @@ RUN wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/
   mkdir /opt/ums/database /opt/ums/data /var/log/UMS &&\
   groupadd -g 500 ums &&\
   useradd -u 500 -g 500 -d /opt/ums ums &&\
-  chown -R ums:ums /opt/ums /var/log/UMS &&\
-  apt-get purge -y jq &&\
-  apt-get autoremove -y &&\
-  rm -rf /var/lib/apt/lists/*
+  chown -R ums:ums /opt/ums /var/log/UMS
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
