@@ -10,12 +10,18 @@ RUN (dpkg --add-architecture i386 &&\
   apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 mediainfo mencoder mplayer procps vlc wget &&\
   rm -rf /var/lib/apt/lists/*)
 
-ENV UMSVER=10.21.1 \
-  UMS_PROFILE=/opt/ums/UMS.conf \
+ENV UMS_PROFILE=/opt/ums/UMS.conf \
   JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
 
-# get latest release number and use that to install UMS; fail to install if version is not 10.x
-RUN wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
+# add build arg for cache busting
+ARG UMSVER
+
+# get latest release number and use that to install UMS; fail to install if version is not 11.x
+RUN (apt-get update &&\
+  apt-get install -y jq &&\
+  UMSVER=$(if [ -z "${UMSVER}" ]; then wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name; else echo "${UMSVER}"; fi) &&\
+  if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "11" ]; then echo "Latest version number is no longer 11"; exit 1; fi &&\
+  wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
@@ -26,7 +32,7 @@ RUN wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/
   chown -R ums:ums /opt/ums /var/log/UMS &&\
   apt-get purge -y jq &&\
   apt-get autoremove -y &&\
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*)
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
