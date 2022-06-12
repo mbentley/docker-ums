@@ -18,7 +18,7 @@ FROM mbentley/alpine:latest
 LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 
 ENV UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions"
+  JAVA_OPTS="-XX:+UseContainerSupport"
 
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 # get latest release number and use that to install UMS; fail to install if version is not 10.x
