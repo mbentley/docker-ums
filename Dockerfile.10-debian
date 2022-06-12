@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 RUN dpkg --add-architecture i386 &&\
   apt-get update &&\
-  apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 locales mediainfo mencoder mplayer procps vlc wget &&\
+  apt-get install -y dcraw flac iputils-ping libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 locales mediainfo mencoder mplayer procps vlc wget &&\
   echo 'LANG="en_US.UTF-8"' >> /etc/default/locale &&\
   sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&\
   locale-gen &&\
