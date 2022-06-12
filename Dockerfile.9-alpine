@@ -19,7 +19,7 @@ LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 
 ENV UMSVER=9.8.3 \
   UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions"
+  JAVA_OPTS="-XX:+UseContainerSupport"
 
 # download and install UMS
 RUN apk add --no-cache coreutils flac mediainfo mplayer openjdk8-jre vlc &&\

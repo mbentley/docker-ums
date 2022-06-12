@@ -12,7 +12,7 @@ RUN (dpkg --add-architecture i386 &&\
 
 ENV UMSVER=9.8.3 \
   UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions"
+  JAVA_OPTS="-XX:+UseContainerSupport"
 
 # download and install UMS
 RUN (wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
