@@ -5,14 +5,17 @@ LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
-RUN (dpkg --add-architecture i386 &&\
+RUN dpkg --add-architecture i386 &&\
   apt-get update &&\
-  apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 mediainfo mencoder mplayer procps vlc wget &&\
-  rm -rf /var/lib/apt/lists/*)
+  apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 locales mediainfo mencoder mplayer procps vlc wget &&\
+  echo 'LANG="en_US.UTF-8"' >> /etc/default/locale &&\
+  sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&\
+  locale-gen &&\
+  rm -rf /var/lib/apt/lists/*
 
 ENV UMSVER=10.21.1 \
   UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+  JAVA_OPTS="-XX:+UseContainerSupport"
 
 # get latest release number and use that to install UMS
 RUN wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\

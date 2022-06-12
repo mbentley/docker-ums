@@ -17,14 +17,14 @@ FROM mbentley/alpine:latest
 LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 
 ENV UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+  JAVA_OPTS="-XX:+UseContainerSupport"
 
 # add build arg for cache busting
 ARG UMSVER
 
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
 # get latest release number and use that to install UMS; fail to install if version is not 11.x
-RUN apk add --no-cache coreutils flac jq iputils mediainfo mplayer openjdk8-jre vlc &&\
+RUN apk add --no-cache coreutils flac jq iputils mediainfo mplayer openjdk17-jre vlc &&\
   UMSVER=$(if [ -z "${UMSVER}" ]; then wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name; else echo "${UMSVER}"; fi) &&\
   MYARCH="$(arch)" &&\
   if [ "${MYARCH}" = "x86_64" ]; then UMSARCH="x86_64"; elif [ "${MYARCH}" = "arm64" ] || [ "${MYARCH}" = "aarch64" ]; then UMSARCH="arm64"; else echo "unsupported archtecture"; exit 1; fi &&\

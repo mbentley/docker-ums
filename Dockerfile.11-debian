@@ -5,19 +5,22 @@ LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # install packages per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
-RUN (dpkg --add-architecture i386 &&\
+RUN dpkg --add-architecture i386 &&\
   apt-get update &&\
-  apt-get install -y dcraw flac libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 mediainfo mencoder mplayer procps vlc wget &&\
-  rm -rf /var/lib/apt/lists/*)
+  apt-get install -y dcraw flac iputils-ping libfreetype6:i386 libstdc++6:i386 libbz2-1.0:i386 lib32z1 lib32ncurses6 locales mediainfo mencoder mplayer procps vlc wget &&\
+  echo 'LANG="en_US.UTF-8"' >> /etc/default/locale &&\
+  sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&\
+  locale-gen &&\
+  rm -rf /var/lib/apt/lists/*
 
 ENV UMS_PROFILE=/opt/ums/UMS.conf \
-  JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+  JAVA_OPTS="-XX:+UseContainerSupport"
 
 # add build arg for cache busting
 ARG UMSVER
 
 # get latest release number and use that to install UMS; fail to install if version is not 11.x
-RUN (apt-get update &&\
+RUN apt-get update &&\
   apt-get install -y jq &&\
   UMSVER=$(if [ -z "${UMSVER}" ]; then wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name; else echo "${UMSVER}"; fi) &&\
   if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "11" ]; then echo "Latest version number is no longer 11"; exit 1; fi &&\
@@ -32,7 +35,7 @@ RUN (apt-get update &&\
   chown -R ums:ums /opt/ums /var/log/UMS &&\
   apt-get purge -y jq &&\
   apt-get autoremove -y &&\
-  rm -rf /var/lib/apt/lists/*)
+  rm -rf /var/lib/apt/lists/*
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
