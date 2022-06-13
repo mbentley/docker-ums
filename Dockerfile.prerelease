@@ -1,9 +1,8 @@
-# build tsmuxer (we must use alpine 3.11 because ninja doesn't exist in 3.12 and above)
 # rebased/repackaged base image that only updates existing packages
-FROM mbentley/alpine:3.11 AS tsmuxer-build
+FROM mbentley/alpine:latest AS tsmuxer-build
 
 # install build dependencies
-RUN apk add --no-cache build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static ninja zlib-dev zlib-static
+RUN apk add --no-cache build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static zlib-dev zlib-static
 
 # copy in build script
 COPY build-tsmuxer.sh /
@@ -12,7 +11,7 @@ COPY build-tsmuxer.sh /
 RUN /build-tsmuxer.sh
 
 
-# build UMS image
+# final image with UMS + copy over the compiled tsmuxer
 # rebased/repackaged base image that only updates existing packages
 FROM mbentley/alpine:latest
 LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
@@ -21,34 +20,35 @@ ENV UMS_PROFILE=/opt/ums/UMS.conf \
   JAVA_OPTS="-XX:+UseContainerSupport"
 
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
-# get latest release number and use that to install UMS; fail to install if version is not 10.x
-RUN apk add --no-cache coreutils flac jq mediainfo mplayer openjdk8-jre vlc &&\
+# get latest release number and use that to install UMS; fail to install if version is not 11.x
+RUN apk add --no-cache coreutils flac jq iputils mediainfo mplayer openjdk17-jre vlc &&\
   UMSVER=$(wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases | jq -r '.[] | select(.prerelease == true) | .name' | head -n 1) &&\
+  MYARCH="$(arch)" &&\
+  if [ "${MYARCH}" = "x86_64" ]; then UMSARCH="x86_64"; elif [ "${MYARCH}" = "arm64" ] || [ "${MYARCH}" = "aarch64" ]; then UMSARCH="arm64"; else echo "unsupported archtecture"; exit 1; fi &&\
   apk del --purge --no-cache jq &&\
-  if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "10" ]; then echo "Latest version number is no longer 10"; exit 1; fi &&\
-  wget "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
+  if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "11" ]; then echo "Latest version number is no longer 11"; exit 1; fi &&\
+  wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-${UMSARCH}.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
   mv ums-${UMSVER} ums &&\
-  rm -rf /opt/ums/jre15 &&\
-  rm /opt/ums/linux/tsMuxeR* &&\
-  ln -s /usr/lib/jvm/java-1.8-openjdk/jre /opt/ums/jre15 &&\
-  mkdir /opt/ums/database /opt/ums/data &&\
+  rm -rf /opt/ums/jre* &&\
+  rm -f /opt/ums/linux/tsMuxeR* &&\
+  mkdir /opt/ums/database /opt/ums/data /var/log/UMS &&\
   addgroup -g 500 ums &&\
   adduser -u 500 -G ums -h /opt/ums -D ums &&\
-  chown -R ums:ums /opt/ums &&\
-  rm -rf /media/* &&\
-  rm -rf /opt/ums/jre14
+  chown -R ums:ums /opt/ums /var/log/UMS &&\
+  rm -rf /media/*
+
 
 # bring over tsmuxer
-COPY --from=tsmuxer-build /tmp/tsmuxer-install /
+COPY --from=tsmuxer-build /tsMuxer/bin/tsMuxeR /opt/ums/linux/tsMuxeR
 
 # add the entrypoint
 COPY entrypoint.sh /entrypoint.sh
 
 WORKDIR /opt/ums
 EXPOSE 1900/udp 2869 5001 9001
-VOLUME ["/tmp","/opt/ums/database","/opt/ums/data"]
+VOLUME ["/tmp","/opt/ums/database","/opt/ums/data","/var/log/UMS"]
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/opt/ums/UMS.sh"]
