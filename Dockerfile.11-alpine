@@ -1,6 +1,9 @@
 # rebased/repackaged base image that only updates existing packages
 FROM mbentley/alpine:latest AS tsmuxer-build
 
+# cache buster for tsmuxer
+ARG TSMUXER_VER
+
 # install build dependencies
 RUN apk add --no-cache build-base bzip2-static cmake file freetype-static freetype-dev g++ git libc6-compat libpng-static zlib-dev zlib-static
 

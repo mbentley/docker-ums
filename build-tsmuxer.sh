@@ -10,7 +10,7 @@ cd tsMuxer
 # set build args
 export MAKEFLAGS="-j 4"
 
-# commands directly taken from (https://github.com/justdan96/tsMuxer/blob/master/rebuild_linux_docker.sh) except for disabling the static build
+# commands directly taken from (https://github.com/justdan96/tsMuxer/blob/master/scripts/rebuild_linux_docker.sh) except for disabling the static build
 rm -rf build
 mkdir build
 cd build
