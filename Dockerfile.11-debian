@@ -13,7 +13,7 @@ RUN dpkg --add-architecture i386 &&\
   locale-gen &&\
   rm -rf /var/lib/apt/lists/*
 
-ENV UMS_VER=11.6.0 \
+ENV UMSVER=11.6.0 \
   UMS_PROFILE=/opt/ums/UMS.conf \
   JAVA_OPTS="-XX:+UseContainerSupport"
 
