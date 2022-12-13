@@ -19,7 +19,7 @@ RUN /build-tsmuxer.sh
 FROM mbentley/alpine:latest
 LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
 
-ENV UMS_VER=11.6.0 \
+ENV UMSVER=11.6.0 \
   UMS_PROFILE=/opt/ums/UMS.conf \
   JAVA_OPTS="-XX:+UseContainerSupport"
 
