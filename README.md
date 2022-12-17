@@ -12,9 +12,9 @@ To pull this image:
 
 | Tags | UMS Version | Dockerfile | Base Image | Arch |
 | ---- | ----------- | ---------- | ---------- | ---- |
-| `latest`<br>`12` | UMS 12.x | [Dockerfile.12-alpine](Dockerfile.12-alpine) | `alpine:latest` | `amd64`, `arm64` |
-| `12-alpine` | UMS 12.x | [Dockerfile.12-alpine](Dockerfile.12-alpine) | `alpine:latest` | `amd64`, `arm64` |
-| `12-debian` | UMS 12.x | [Dockerfile.12-debian](Dockerfile.12-debian) | `debian:bullseye` | `amd64` |
+| `latest`<br>`13` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `13-alpine` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `13-debian` | UMS 13.x | [Dockerfile.13-debian](Dockerfile.13-debian) | `debian:bullseye` | `amd64` |
 | `11` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `11-alpine` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `11-debian` | UMS 11.x | [Dockerfile.11-debian](Dockerfile.11-debian) | `debian:bullseye` | `amd64` |
@@ -41,9 +41,9 @@ These tags will explicitly pull the image for the listed architecture and are bi
 
 | Tags | UMS Version | Dockerfile | Base Image | Arch |
 | ---- | ----------- | ---------- | ---------- | ---- |
-| `latest-amd64`<br>`12-alpine-amd64` | UMS 12.x | [Dockerfile.12-alpine](Dockerfile.12-alpine) | `alpine:latest` | `amd64` |
-| `latest-arm64`<br>`12-alpine-arm64` | UMS 12.x | [Dockerfile.12-alpine](Dockerfile.12-alpine) | `alpine:latest` | `arm64` |
-| `12-debian-amd64` | UMS 12.x | [Dockerfile.12-debian](Dockerfile.12-debian) | `debian:bullseye` | `amd64` |
+| `latest-amd64`<br>`13-alpine-amd64` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64` |
+| `latest-arm64`<br>`13-alpine-arm64` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `arm64` |
+| `13-debian-amd64` | UMS 13.x | [Dockerfile.13-debian](Dockerfile.13-debian) | `debian:bullseye` | `amd64` |
 | `11-alpine-amd64` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64` |
 | `11-alpine-arm64` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `arm64` |
 | `11-debian-amd64` | UMS 11.x | [Dockerfile.11-debian](Dockerfile.11-debian) | `debian:bullseye` | `amd64` |
