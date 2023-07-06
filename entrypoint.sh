@@ -8,7 +8,11 @@ console_output() {
 # function to set custom parameters in UMS.conf
 set_ums_parameter() {
   console_output INFO "Setting UMS setting '${1}' to '${2}'"
-  sed -i "s+^${1} =$+${1} = ${2}+g" /opt/ums/UMS.conf
+  if grep -q "^${1} =" /opt/ums/UMS.conf; then
+    sed -i "s+^${1} =$+${1} = ${2}+g" /opt/ums/UMS.conf
+  else
+    echo "${1} = ${2}" >> /opt/ums/UMS.conf
+  fi;
 }
 
 # check to see if the FOLDER env var has been passed
