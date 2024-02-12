@@ -1,7 +1,7 @@
 # mbentley/ums
 
 docker image for Universal Media Server (UMS)
-based off of debian:buster or alpine:latest
+based off of alpine:latest
 
 To pull this image:
 `docker pull mbentley/ums`
@@ -14,10 +14,6 @@ To pull this image:
 | ---- | ----------- | ---------- | ---------- | ---- |
 | `latest`<br>`13` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `13-alpine` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
-| `13-debian` | UMS 13.x | [Dockerfile.13-debian](Dockerfile.13-debian) | `debian:bullseye` | `amd64` |
-| `11` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64`, `arm64` |
-| `11-alpine` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64`, `arm64` |
-| `11-debian` | UMS 11.x | [Dockerfile.11-debian](Dockerfile.11-debian) | `debian:bullseye` | `amd64` |
 
 ### Archived Tags
 
@@ -25,6 +21,8 @@ These images are still published on Docker Hub but are no longer regularly updat
 
 | Tags | UMS Version | Dockerfile | Base Image | Arch |
 | ---- | ----------- | ---------- | ---------- | ---- |
+| `11` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `11-alpine` | UMS 11.x | [Dockerfile.11-alpine](Dockerfile.11-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `10` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `10-alpine` | UMS 10.x | [Dockerfile.10-alpine](Dockerfile.10-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `10-debian` | UMS 10.x | [Dockerfile.10-debian](Dockerfile.10-debian) | `debian:bullseye` | `amd64` |
