@@ -13,13 +13,17 @@ RUN dpkg --add-architecture i386 &&\
   locale-gen &&\
   rm -rf /var/lib/apt/lists/*
 
-ENV UMSVER=13.10.1 \
-  UMS_PROFILE=/opt/ums/UMS.conf \
+ENV UMS_PROFILE=/opt/ums/UMS.conf \
   JAVA_OPTS="-XX:+UseContainerSupport"
 
-# install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
+# add build arg for cache busting
+ARG UMSVER
+
+# get latest release number and use that to install UMS; fail to install if version is not 14.x
 RUN apt-get update &&\
   apt-get install -y jq &&\
+  UMSVER=$(if [ -z "${UMSVER}" ]; then wget -q -O - https://api.github.com/repos/UniversalMediaServer/UniversalMediaServer/releases/latest | jq -r .name; else echo "${UMSVER}"; fi) &&\
+  if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "14" ]; then echo "Latest version number is no longer 14"; exit 1; fi &&\
   wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
