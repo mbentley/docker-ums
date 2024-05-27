@@ -18,7 +18,6 @@ ENV UMSVER=11.6.0 \
   JAVA_OPTS="-XX:+UseContainerSupport"
 
 # install dependencies per https://github.com/UniversalMediaServer/UniversalMediaServer/wiki/Linux-install-instructions
-# get latest release number and use that to install UMS
 RUN apt-get update &&\
   apt-get install -y jq &&\
   wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-x86_64.tgz" -O /opt/UMS-${UMSVER}.tgz &&\

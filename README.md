@@ -12,7 +12,9 @@ To pull this image:
 
 | Tags | UMS Version | Dockerfile | Base Image | Arch |
 | ---- | ----------- | ---------- | ---------- | ---- |
-| `latest`<br>`13` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `latest`<br>`14` | UMS 14.x | [Dockerfile.14-alpine](Dockerfile.14-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `14-alpine` | UMS 14.x | [Dockerfile.14-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
+| `13` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
 | `13-alpine` | UMS 13.x | [Dockerfile.13-alpine](Dockerfile.13-alpine) | `alpine:latest` | `amd64`, `arm64` |
 
 ### Archived Tags
