@@ -33,7 +33,7 @@ RUN apk add --no-cache coreutils flac jq iputils mediainfo mplayer openjdk17-jre
   if [ "${MYARCH}" = "x86_64" ]; then UMSARCH="x86_64"; elif [ "${MYARCH}" = "arm64" ] || [ "${MYARCH}" = "aarch64" ]; then UMSARCH="arm64"; else echo "unsupported archtecture"; exit 1; fi &&\
   apk del --purge --no-cache jq &&\
   if [ "$(echo $UMSVER | awk -F '.' '{print $1}')" -ne "14" ]; then echo "Latest version number is no longer 14"; exit 1; fi &&\
-  wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-${UMSVER}-${UMSARCH}.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
+  wget -nv "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/${UMSVER}/UMS-Linux-${UMSVER}-${UMSARCH}.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
