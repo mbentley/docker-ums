@@ -1,5 +1,7 @@
 # mbentley/ums
 
+Note: this repository is archived; existing Docker images will be available on Docker Hub but no upates will be made available. I suggest you use the official Docker images for UMS. See the [UMS documentation](https://support.universalmediaserver.com/installation/docker) for more information.
+
 docker image for Universal Media Server (UMS)
 based off of alpine:latest
 
